@@ -1,19 +1,9 @@
 import React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { FunctionComponent } from 'react';
-
+import { Typography, Container, CssBaseline, Box, Avatar, TextField, FormControlLabel, Checkbox, Button, Grid } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { LockOpenOutlined, LockOutlined } from '@mui/icons-material';
 interface Props {
     setValue: Function
 }
@@ -22,7 +12,7 @@ function Copyright(props: any) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
+      <Link color="inherit" to="/">
         Your Website
       </Link>{' '}
       {new Date().getFullYear()}
@@ -56,7 +46,7 @@ const SignIn: FunctionComponent<Props> = ({setValue}) => {
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
+            <LockOutlined />
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign in
@@ -96,13 +86,17 @@ const SignIn: FunctionComponent<Props> = ({setValue}) => {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
+              <Button onClick={() => setValue(1)}>
+                  <Typography variant='body2'>
+                  Forgot Password?
+                  </Typography>
+                </Button>
               </Grid>
               <Grid item>
-            <Button onClick={() => setValue(1)}>
-                Don't have an account? Sign Up
+                <Button onClick={() => setValue(1)}>
+                  <Typography variant='body2'>
+                  Don't have an account? Sign Up
+                  </Typography>
                 </Button>
               </Grid>
             </Grid>

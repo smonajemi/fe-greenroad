@@ -1,4 +1,5 @@
 import { Box, Tab, Tabs } from "@mui/material";
+import { MainContainer } from "components/MainContainer";
 import React, { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import AuthContainer from "../components/auth/AuthContainer";
@@ -36,6 +37,7 @@ const Login = ({}: Props) => {
   };
 
   return (
+    <MainContainer title={'Login'}>
     <Center height={90}>
       <Box
         display={"flex"}
@@ -61,6 +63,7 @@ const Login = ({}: Props) => {
         </TabPanel>
       </Box>
     </Center>
+    </MainContainer>
   );
 };
 

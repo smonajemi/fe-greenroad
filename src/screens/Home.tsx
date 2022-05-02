@@ -1,3 +1,4 @@
+import { MainContainer } from "components/MainContainer";
 import { useEffect } from "react";
 import Logout from "../components/auth/Logout";
 import Center from "../components/utils/Center";
@@ -8,9 +9,11 @@ const Home = ({}: Props) => {
   useEffect(() => {}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <Center>
+    <MainContainer title={'Home'} >
+      <Center>
       <Logout />
     </Center>
+    </MainContainer>
   );
 };
 

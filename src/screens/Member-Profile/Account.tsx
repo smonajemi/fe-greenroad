@@ -1,8 +1,8 @@
 import { Box, Container, Grid, Typography } from '@mui/material';
 import { MainContainer } from 'components/MainContainer';
-import AccountProfile from './components/Account/AccountProfile';
-import AccountProfileDetails from './components/Account/AccountProfileDetails';
-import { DashboardLayout } from './components/Account/DashboardLayout';
+import AccountProfile from '../components/Account/AccountProfile';
+import AccountProfileDetails from '../components/Account/AccountProfileDetails';
+import { DashboardLayout } from '../components/Account/DashboardLayout';
 
 const Account = () => (
     <MainContainer title={'Account'}>

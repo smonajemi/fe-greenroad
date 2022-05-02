@@ -1,6 +1,8 @@
 import { MenuSharp } from "@mui/icons-material";
 import { AppBar, Container, Toolbar, Typography, Box, IconButton, Menu, MenuItem, Button, Tooltip, Avatar } from "@mui/material";
+import { AnyRecord } from "dns";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const pages = [''];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -8,7 +10,7 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const NavBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
-
+  const navigate = useNavigate()
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -23,16 +25,28 @@ const NavBar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
+  
+  const handleProfileDropDown = (src: any) => {
+   switch (src) {
+     case 'Dashboard':
+      navigate('/dashboard')
+       break;
+   
+     default:
+      alert(false)
+       break;
+   }
+  }
   return (
-    <AppBar position="static">
+    <AppBar position="fixed">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
             variant="h6"
             noWrap
             component="div"
-            sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
+            sx={{ mr: 2, display: { xs: 'none', md: 'flex', cursor: 'pointer' } }}
+            onClick={() => navigate('/')}
           >
             LOGO
           </Typography>
@@ -77,7 +91,8 @@ const NavBar = () => {
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
+            sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' , cursor: 'pointer'} }}
+            onClick={() => navigate('/')}
           >
             LOGO
           </Typography>
@@ -116,7 +131,7 @@ const NavBar = () => {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <MenuItem key={setting} onClick={() => handleProfileDropDown(setting)}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}

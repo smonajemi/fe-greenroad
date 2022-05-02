@@ -1,5 +1,6 @@
-import Account from "screens/Account";
-import Settings from "screens/Settings";
+import Account from "screens/Member-Profile/Account";
+import { Dashboard } from "screens/Member-Profile/Dashboard";
+import Settings from "screens/Member-Profile/Settings";
 import Home from "../screens/Home";
 import Login from "../screens/Login";
 
@@ -27,13 +28,13 @@ const routes: RouteType[] = [
     path: "/account",
     component: Account,
     name: "Account Screen",
-    protected: true,
+    protected: false,
   },
   {
-    path: "/settings",
-    component: Settings,
-    name: "Setting Screen",
-    protected: true,
+    path: "/dashboard",
+    component: Dashboard,
+    name: "Dashboard Screen",
+    protected: false,
   },
 ];
 

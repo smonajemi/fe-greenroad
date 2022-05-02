@@ -1,8 +1,8 @@
 import { Box, Container, Typography } from '@mui/material';
 import { MainContainer } from 'components/MainContainer';
-import { DashboardLayout } from './components/Account/DashboardLayout';
-import { SettingsNotifications } from './components/Setting/SettingsNotifications';
-import { SettingsPassword } from './components/Setting/SettingsPassword';
+import { DashboardLayout } from 'screens/components/Account/DashboardLayout';
+import { SettingsPassword } from 'screens/components/Setting/SettingsPassword';
+
 
 
 const Settings = () => (
@@ -21,10 +21,7 @@ const Settings = () => (
         >
           Settings
         </Typography>
-        <SettingsNotifications />
-        <Box sx={{ pt: 3 }}>
-          <SettingsPassword />
-        </Box>
+        <SettingsPassword />
       </Container>
     </Box>
   </MainContainer>

@@ -1,34 +1,11 @@
 import { MenuSharp } from "@mui/icons-material";
 import { AppBar, Container, Toolbar, Typography, Box, IconButton, Menu, MenuItem, Button, Tooltip, Avatar } from "@mui/material";
-import { AnyRecord } from "dns";
-import React from "react";
-import { useNavigate } from "react-router-dom";
 import {useNavBar} from './hooks/useNavBar'
 
 const NavBar = () => {
-  // const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-  // const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
-  // const navigate = useNavigate()
-  // const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-  //   setAnchorElNav(event.currentTarget);
-  // };
-  // const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-  //   setAnchorElUser(event.currentTarget);
-  // };
-
-  // const handleCloseNavMenu = () => {
-  //   setAnchorElNav(null);
-  // };
-
-  // const handleCloseUserMenu = () => {
-  //   setAnchorElUser(null);
-  // };
   const {
     anchorElNav,
-    setAnchorElNav,
     anchorElUser,
-    setAnchorElUser,
-    isDevice,
     navigate,
     handleOpenNavMenu,
     handleOpenUserMenu,
@@ -36,11 +13,7 @@ const NavBar = () => {
     handleCloseUserMenu,
     handleProfileOption,
     pages,
-    loggedInSettings,
-    handleAuthentication,
-    user,
     settings
-
   } = useNavBar()
   
   return (

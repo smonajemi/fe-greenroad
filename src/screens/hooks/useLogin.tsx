@@ -103,7 +103,7 @@ export const useLogin = () => {
           ...currentUser,
           [e?.target?.name]: e?.target?.value,
         });
-        setPasswordValidation(e?.target?.value?.length > 10)
+        setPasswordValidation(e?.target?.value?.length >= 10)
         break;
     }
   };
@@ -137,7 +137,7 @@ export const useLogin = () => {
           ...currentUser,
           [e?.target?.name]: e?.target?.value,
         });
-        setPasswordValidation(e?.target?.value?.length > 10)
+        setPasswordValidation(e?.target?.value?.length >= 10)
         break;
     }
   };

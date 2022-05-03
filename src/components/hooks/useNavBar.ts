@@ -3,20 +3,18 @@ import { useNavigate } from "react-router-dom";
 import { useResponsiveness } from "components/hooks/useResponsiveness";
 import { BackendUser } from 'types';
 import { useLocalStorage } from './useLocalStorage';
+import { useLogout } from './useLogout';
 
 export const useNavBar = () => {
+    const {logout} = useLogout()
+    const {isDevice} = useResponsiveness()
+    const navigate = useNavigate()
     const pages = [''];
     const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
     const loggedInSettings = ['Profile', 'Logout']
-    const [user, setUser] = useState<BackendUser>()
-    const {getItem, clearItem} = useLocalStorage()
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
- 
-
-    const {isDevice} = useResponsiveness()
-    const navigate = useNavigate();
   
     const handleOpenNavMenu = (event: MouseEvent<HTMLElement>) => {
       setAnchorElNav(event.currentTarget);
@@ -35,27 +33,18 @@ export const useNavBar = () => {
       
     const handleProfileOption = (src: any) => {
       switch (src) {
-        case 'dashboard':  
+        case 'Dashboard':  
         navigate('/dashboard')
         break;
+        case 'Account':
+          navigate('/account')
+        break;
         case 'Logout':
-          clearItem('user')
-          navigate('/')
+          logout()
         break;
       }
     };
-    const handleAuthentication = (src: any) => {
-      switch (src) {
-        case 'Sign Up':
-          navigate('/signUp')
-          window.location.reload()
-        break;
-        case 'Sign In':
-          navigate('/signIn')
-          window.location.reload()
-        break;
-      }
-    };
+
     return {
         anchorElNav, 
         setAnchorElNav,
@@ -68,10 +57,8 @@ export const useNavBar = () => {
         handleCloseNavMenu,
         handleCloseUserMenu,
         handleProfileOption,
-        handleAuthentication,
         pages,
         settings,
         loggedInSettings,
-        user,
     } as const
 }

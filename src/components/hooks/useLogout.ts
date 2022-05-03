@@ -1,24 +1,20 @@
 import React, { useState } from "react";
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../config/firebase";
 import { useLocalStorage } from "components/hooks/useLocalStorage";
 
-interface Props {
-  navigateTo?: string;
-}
-
-const Logout = ({ navigateTo = "/login" }: Props) => {
+export const useLogout = () => {
   const [disabled, setDisabled] = useState(false);
   const navigate = useNavigate();
-  const { clearItem } = useLocalStorage()
+  const { clearItem } = useLocalStorage();
   const logout = () => {
     setDisabled(true);
     signOut(auth)
       .then(() => {
-        navigate(navigateTo);
-        clearItem('user')
+        navigate("/login");
+        clearItem("user");
       })
       .catch((error) => {
         console.error(error);
@@ -26,13 +22,7 @@ const Logout = ({ navigateTo = "/login" }: Props) => {
       });
   };
 
-  return (
-    <div>
-      <Button disabled={disabled} onClick={logout}>
-        Logout
-      </Button>
-    </div>
-  );
+  return {
+    logout,
+  } as const;
 };
-
-export default Logout;

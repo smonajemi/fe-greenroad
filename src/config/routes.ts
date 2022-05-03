@@ -15,7 +15,7 @@ const routes: RouteType[] = [
   {
     path: "*",
     component: ErrorPage,
-    name: "Error Screen",
+    name: "Error",
     protected: false,
   },
   {
@@ -27,19 +27,19 @@ const routes: RouteType[] = [
   {
     path: "/login",
     component: Login,
-    name: "Login Screen",
+    name: "Login",
     protected: false,
   },
   {
     path: "/account",
     component: Account,
-    name: "Account Screen",
+    name: "Account",
     protected: true,
   },
   {
     path: "/dashboard",
     component: Dashboard,
-    name: "Dashboard Screen",
+    name: "Dashboard",
     protected: true,
   },
 ];

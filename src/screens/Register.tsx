@@ -18,6 +18,7 @@ interface Props {
     setValue: Function
     handleSignUpChange: Function
     handleSubmit: Function
+    isValidated: boolean
 }
 const Copyright = (props: any) => {
   return (
@@ -34,7 +35,7 @@ const Copyright = (props: any) => {
 
 const theme = createTheme();
 
-const Register: FunctionComponent<Props> = ({setValue, handleSignUpChange, handleSubmit})  =>{
+const Register: FunctionComponent<Props> = ({setValue, handleSignUpChange, handleSubmit, isValidated})  =>{
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -110,6 +111,7 @@ const Register: FunctionComponent<Props> = ({setValue, handleSignUpChange, handl
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
               onClick={(e) => handleSubmit(e)}
+              disabled={!isValidated}
             >
               Sign Up
             </Button>

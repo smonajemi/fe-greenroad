@@ -15,6 +15,7 @@ const Login = () => {
     handleSubmit,
     handleSignInChange,
     handleSignUpChange,
+    isValidated
   } = useLogin();
 
   return (
@@ -39,6 +40,7 @@ const Login = () => {
               setValue={setValue}
               handleSignInChange={handleSignInChange}
               handleSubmit={handleSubmit}
+              isValidated ={isValidated}
             />
             {/* <AuthContainer /> */}
           </TabPanel>
@@ -47,6 +49,7 @@ const Login = () => {
               setValue={setValue}
               handleSignUpChange={handleSignUpChange}
               handleSubmit={handleSubmit}
+              isValidated ={isValidated}
             />
           </TabPanel>
         </Box>

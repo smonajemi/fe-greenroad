@@ -1,5 +1,5 @@
 import { useLocalStorage } from "components/hooks/useLocalStorage";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { LoginUser, BackendUser } from "types";
 import { useUserApi } from "./use-user-api/useUserApi";
@@ -13,19 +13,12 @@ import {
 import { auth } from "config/firebase";
 
 export const useLogin = () => {
-  // handle Tab Panel
   const tabIdToURL: { [id: number]: string } = {
     0: "login",
     1: "register",
   };
-
-  // getting and setting URL params
   const [searchParams, setSearchParams] = useSearchParams();
-
-  // get action from URL
   const action: string = searchParams.get("action") || "login";
-
-  // used to set initial state
   let indexFromUrl = 0;
   if (action === "register") {
     indexFromUrl = 1;
@@ -36,11 +29,14 @@ export const useLogin = () => {
   const { notify } = useNotification();
   const [value, setValue] = useState(indexFromUrl);
   const [currentUser, setCurrentUser] = useState<BackendUser>();
-  const [isValidated, setValidation] = useState<boolean>(false);
   const [isValidEmail, setEmailValidation] = useState<boolean>(false);
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [isValidPassword, setPasswordValidation] = useState<boolean>(false);
+  const [isValidated, setValidation] = useState<boolean>(false);
+  const [isFirstName, setFirstNameValidation] = useState<boolean>(false);
+  const [isLastName, setLastNameValidation] = useState<boolean>(false);
+
   const [errorMessage, setErrorMessage] = useState<string>("");
+
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
     const action = tabIdToURL[newValue];
@@ -87,7 +83,6 @@ export const useLogin = () => {
           navigate("/");
         })
         .catch((error) => {
-          console.log(error)
           setErrorMessage(error.code + ": " + error.message);
         });
       }
@@ -101,7 +96,6 @@ export const useLogin = () => {
           [e?.target?.name]: e?.target?.value,
         });
         setEmailValidation(validator.isEmail(e?.target?.value));
-        setEmail(e?.target?.value);
         break;
 
       case "password":
@@ -109,7 +103,7 @@ export const useLogin = () => {
           ...currentUser,
           [e?.target?.name]: e?.target?.value,
         });
-        setPassword(e?.target?.value);
+        setPasswordValidation(e?.target?.value?.length > 10)
         break;
     }
   };
@@ -121,12 +115,14 @@ export const useLogin = () => {
           ...currentUser,
           [e?.target?.name]: e?.target?.value,
         });
+        setFirstNameValidation(validator?.isAlpha(e?.target?.value) && e?.target?.value?.length > 1)
         break;
       case "lastName":
         setCurrentUser({
           ...currentUser,
           [e?.target?.name]: e?.target?.value,
         });
+        setLastNameValidation(validator?.isAlpha(e?.target?.value) && e?.target?.value?.length > 1)
         break;
       case "email":
         setCurrentUser({
@@ -134,15 +130,21 @@ export const useLogin = () => {
           userName: e?.target?.value,
           [e?.target?.name]: e?.target?.value,
         });
+        setEmailValidation(validator.isEmail(e?.target?.value));
         break;
       case "password":
         setCurrentUser({
           ...currentUser,
           [e?.target?.name]: e?.target?.value,
         });
+        setPasswordValidation(e?.target?.value?.length > 10)
         break;
     }
   };
+  useEffect(() => {
+    value === 0 ? setValidation(isValidEmail && isValidPassword) : setValidation(isFirstName && isLastName && isValidEmail && isValidPassword)
+  }, [isFirstName, isLastName, isValidEmail, isValidPassword, isValidated, value])
+
   const handleSubmit = (e) => {
     e.preventDefault();
     value === 0 ? login(currentUser) : register(currentUser);
@@ -162,5 +164,6 @@ export const useLogin = () => {
     handleSignUpChange,
     handleSubmit,
     currentUser,
+    isValidated
   } as const;
 };

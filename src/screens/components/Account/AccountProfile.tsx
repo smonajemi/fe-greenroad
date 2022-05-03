@@ -10,6 +10,12 @@ import {
     FormControl,
     Typography
   } from '@mui/material';
+import { FunctionComponent } from 'react';
+import { BackendUser } from 'types';
+ 
+  export interface IAccountProfileProps {
+    currentUser: BackendUser
+  }
   
   const user = {
     avatar: '/static/images/avatars/avatar_6.png',
@@ -20,8 +26,7 @@ import {
     timezone: 'EST'
   };
   
-  const AccountProfile = (props) => (
-    <FormControl {...props}>
+  const AccountProfile: FunctionComponent<IAccountProfileProps> = ({currentUser}) => (
           <Card>
       <CardContent>
         <Box
@@ -44,7 +49,7 @@ import {
             gutterBottom
             variant="h5"
           >
-            {user.name}
+            {currentUser?.firstName?.concat(' ')?.concat(currentUser?.lastName)}
           </Typography>
           <Typography
             color="textSecondary"
@@ -61,17 +66,17 @@ import {
         </Box>
       </CardContent>
       <Divider />
-      <CardActions>
+      {/* <CardActions> */}
         <Button
           color="primary"
           fullWidth
           variant="text"
+          onClick={() => alert('uploaded')}
         >
           Upload picture
         </Button>
-      </CardActions>
+      {/* </CardActions> */}
     </Card>
-    </FormControl>
   );
  
   export default AccountProfile;

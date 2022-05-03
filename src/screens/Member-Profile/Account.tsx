@@ -1,10 +1,15 @@
 import { Box, Container, Grid, Typography } from '@mui/material';
 import { MainContainer } from 'components/MainContainer';
+import { FunctionComponent } from 'react';
+import { BackendUser } from 'types';
 import AccountProfile from '../components/Account/AccountProfile';
 import AccountProfileDetails from '../components/Account/AccountProfileDetails';
 import { DashboardLayout } from '../components/Account/DashboardLayout';
+export interface IAccountProps {
+  currentUser: BackendUser
+}
 
-const Account = () => (
+const Account: FunctionComponent<IAccountProps> = ({currentUser}) => (
     <MainContainer title={'Account'}>
     <Box
       component="main"
@@ -30,7 +35,7 @@ const Account = () => (
             md={6}
             xs={12}
           >
-            <AccountProfile />
+            <AccountProfile currentUser={currentUser} />
           </Grid>
           <Grid
             item
@@ -38,18 +43,12 @@ const Account = () => (
             md={6}
             xs={12}
           >
-            <AccountProfileDetails />
+            <AccountProfileDetails currentUser={currentUser} />
           </Grid>
         </Grid>
       </Container>
     </Box>
     </MainContainer>
-);
-
-Account.getLayout = (page) => (
-  <DashboardLayout>
-    {page}
-  </DashboardLayout>
 );
 
 export default Account;

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FunctionComponent, useState } from 'react';
 import {
   Box,
   Button,
@@ -10,6 +10,11 @@ import {
   TextField,
   FormControl
 } from '@mui/material';
+import { BackendUser } from 'types';
+
+export interface IAccountProfileDetailsProps {
+  currentUser: BackendUser
+}
 
 const provinces = [
   {
@@ -26,7 +31,7 @@ const provinces = [
   }
 ];
 
-const AccountProfileDetails = (props) => {
+const AccountProfileDetails: FunctionComponent<IAccountProfileDetailsProps> = ({currentUser}) => {
   const [values, setValues] = useState({
     firstName: 'Sina',
     lastName: 'Monajemi',
@@ -44,12 +49,8 @@ const AccountProfileDetails = (props) => {
   };
 
   return (
-    <FormControl
-      autoComplete="off"
-      noValidate
-      {...props}
-    >
-      <Card>
+     <form>
+        <Card>
         <CardHeader
           subheader="The information can be edited"
           title="Profile"
@@ -72,7 +73,7 @@ const AccountProfileDetails = (props) => {
                 name="firstName"
                 onChange={handleChange}
                 required
-                value={values.firstName}
+                value={currentUser?.firstName}
                 variant="outlined"
               />
             </Grid>
@@ -87,7 +88,7 @@ const AccountProfileDetails = (props) => {
                 name="lastName"
                 onChange={handleChange}
                 required
-                value={values.lastName}
+                value={currentUser?.lastName}
                 variant="outlined"
               />
             </Grid>
@@ -102,7 +103,7 @@ const AccountProfileDetails = (props) => {
                 name="email"
                 onChange={handleChange}
                 required
-                value={values.email}
+                value={currentUser?.email}
                 variant="outlined"
               />
             </Grid>
@@ -180,7 +181,7 @@ const AccountProfileDetails = (props) => {
           </Button>
         </Box>
       </Card>
-    </FormControl>
+     </form>
   );
 };
 

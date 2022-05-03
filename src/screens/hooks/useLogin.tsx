@@ -23,7 +23,7 @@ export const useLogin = () => {
   if (action === "register") {
     indexFromUrl = 1;
   }
-  const { setItem, clearItem } = useLocalStorage();
+  const { setItem } = useLocalStorage();
   const { createUser, loginUser } = useUserApi();
   const navigate = useNavigate();
   const { notify } = useNotification();

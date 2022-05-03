@@ -15,19 +15,25 @@ const routes: RouteType[] = [
   {
     path: "*",
     component: ErrorPage,
-    name: "Error",
+    name: "Landing Page",
+    protected: false,
+  },
+  {
+    path: "*",
+    component: ErrorPage,
+    name: "Error Page",
     protected: false,
   },
   {
     path: "/",
     component: Home,
-    name: "Home",
+    name: "Home Page",
     protected: true,
   },
   {
     path: "/login",
     component: Login,
-    name: "Login",
+    name: "Auth Page",
     protected: false,
   },
   {

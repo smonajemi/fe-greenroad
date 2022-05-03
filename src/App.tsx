@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { CircularProgress } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { auth } from "./config/firebase";
 import routes from "./config/routes";
@@ -8,7 +8,6 @@ import AuthChecker from "./components/auth/AuthChecker";
 
 function App() {
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) {
@@ -28,7 +27,7 @@ function App() {
     );
 
   return (
-    <div>
+    <Box>
       <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Routes>
           {routes.map((route, index) => (
@@ -48,7 +47,7 @@ function App() {
           ))}
         </Routes>
       </BrowserRouter>
-    </div>
+    </Box>
   );
 }
 

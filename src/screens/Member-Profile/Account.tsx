@@ -7,9 +7,10 @@ import AccountProfileDetails from '../components/Account/AccountProfileDetails';
 import { DashboardLayout } from '../components/Account/DashboardLayout';
 export interface IAccountProps {
   currentUser: BackendUser
+  setCurrentUser: Function
 }
 
-const Account: FunctionComponent<IAccountProps> = ({currentUser}) => (
+const Account: FunctionComponent<IAccountProps> = ({currentUser, setCurrentUser}) => (
     <MainContainer title={'Account'}>
     <Box
       component="main"
@@ -43,7 +44,7 @@ const Account: FunctionComponent<IAccountProps> = ({currentUser}) => (
             md={6}
             xs={12}
           >
-            <AccountProfileDetails currentUser={currentUser} />
+            <AccountProfileDetails currentUser={currentUser} setCurrentUser={setCurrentUser}/>
           </Grid>
         </Grid>
       </Container>

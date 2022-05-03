@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from 'react';
+import { FunctionComponent, useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -8,64 +8,77 @@ import {
   Divider,
   Grid,
   TextField,
-  FormControl
-} from '@mui/material';
-import { BackendUser } from 'types';
+  FormControl,
+} from "@mui/material";
+import { BackendUser } from "types";
 
 export interface IAccountProfileDetailsProps {
-  currentUser: BackendUser
+  currentUser: BackendUser;
+  setCurrentUser: Function
 }
 
 const provinces = [
   {
-    value: 'ontario',
-    label: 'Ontario'
+    value: "ontario",
+    label: "Ontario",
   },
   {
-    value: 'Quebec',
-    label: 'Quebec'
+    value: "Quebec",
+    label: "Quebec",
   },
   {
-    value: 'Alberta',
-    label: 'Alberta'
-  }
+    value: "Alberta",
+    label: "Alberta",
+  },
 ];
 
-const AccountProfileDetails: FunctionComponent<IAccountProfileDetailsProps> = ({currentUser}) => {
-  const [values, setValues] = useState({
-    firstName: 'Sina',
-    lastName: 'Monajemi',
-    email: 'sina.monajemi@me.com',
-    phone: '+16474665659',
-    province: 'Ontario',
-    country: 'Canada'
-  });
+const AccountProfileDetails: FunctionComponent<IAccountProfileDetailsProps> = ({
+  currentUser,
+  setCurrentUser
+}) => {
+  const [values, setValues] = useState<BackendUser>(currentUser);
 
   const handleChange = (event) => {
     setValues({
       ...values,
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
     });
   };
+  useEffect(() => {
+    console.log(values)
+  }, [values])
+
+  const onEdit = (key: string) => {
+    const profileToEdit = currentUser?.data?.filter(k => k?.key !== key)
+    setCurrentUser(profileToEdit)
+  }
+
+  const onSave = value => {
+    if (value?.key) {
+      const index = currentUser?.data?.findIndex(x => x?.key === value?.key)
+      const newArray = currentUser?.data
+      newArray[index] = value
+      setCurrentUser({...currentUser, data: [...newArray]})
+    } else {
+      const uniqueKey = new Date().getTime().toString()
+      if (currentUser?.data) {
+        console.log(currentUser)
+        setCurrentUser({...currentUser, data: [...currentUser?.data, {key: uniqueKey, ...value}]})
+      } else {
+        setCurrentUser({...currentUser, data: [{key: uniqueKey, ...value}]})
+      }
+    }
+    setCurrentUser(undefined)
+  }
 
   return (
-     <form>
-        <Card>
-        <CardHeader
-          subheader="The information can be edited"
-          title="Profile"
-        />
+    <FormControl>
+      <Card>
+        <CardHeader subheader="The information can be edited" title="Profile" />
         <Divider />
         <CardContent>
-          <Grid
-            container
-            spacing={3}
-          >
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
+          <Grid container spacing={3}>
+            <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
                 helperText="Please specify the first name"
@@ -73,30 +86,22 @@ const AccountProfileDetails: FunctionComponent<IAccountProfileDetailsProps> = ({
                 name="firstName"
                 onChange={handleChange}
                 required
-                value={currentUser?.firstName}
+                value={currentUser?.firstName || values?.firstName}
                 variant="outlined"
               />
             </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
+            <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
                 label="Last name"
                 name="lastName"
                 onChange={handleChange}
                 required
-                value={currentUser?.lastName}
+                value={values?.lastName}
                 variant="outlined"
               />
             </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
+            <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
                 label="Email Address"
@@ -107,41 +112,29 @@ const AccountProfileDetails: FunctionComponent<IAccountProfileDetailsProps> = ({
                 variant="outlined"
               />
             </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
+            <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
                 label="Phone Number"
                 name="phone"
                 onChange={handleChange}
                 type="number"
-                value={values.phone}
+                // value={values.phone}
                 variant="outlined"
               />
             </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
+            <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
                 label="Country"
                 name="country"
                 onChange={handleChange}
                 required
-                value={values.country}
+                // value={values.country}
                 variant="outlined"
               />
             </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
+            <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
                 label="Select Province"
@@ -150,14 +143,11 @@ const AccountProfileDetails: FunctionComponent<IAccountProfileDetailsProps> = ({
                 required
                 select
                 SelectProps={{ native: true }}
-                value={values.province}
+                // value={values.province}
                 variant="outlined"
               >
                 {provinces.map((option) => (
-                  <option
-                    key={option.value}
-                    value={option.value}
-                  >
+                  <option key={option.value} value={option.value}>
                     {option.label}
                   </option>
                 ))}
@@ -168,21 +158,18 @@ const AccountProfileDetails: FunctionComponent<IAccountProfileDetailsProps> = ({
         <Divider />
         <Box
           sx={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            p: 2
+            display: "flex",
+            justifyContent: "flex-end",
+            p: 2,
           }}
         >
-          <Button
-            color="primary"
-            variant="contained"
-          >
+          <Button color="primary" variant="contained" onClick={() => onSave(values)}>
             Save details
           </Button>
         </Box>
       </Card>
-     </form>
+    </FormControl>
   );
 };
 
-  export default AccountProfileDetails;
+export default AccountProfileDetails;

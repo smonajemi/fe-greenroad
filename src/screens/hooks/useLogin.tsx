@@ -48,6 +48,7 @@ export const useLogin = () => {
       src?.email?.toLowerCase(),
       src?.password
     );
+    console.log(userLogin)
     if (!userLogin?.user?.user?.data?.id) {
       notify("error", userLogin?.user?.user?.data?.message);
     } else {

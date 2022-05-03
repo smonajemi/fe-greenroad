@@ -7,6 +7,7 @@ import {
     CardActions,
     CardContent,
     Divider,
+    FormControl,
     Typography
   } from '@mui/material';
   
@@ -20,7 +21,8 @@ import {
   };
   
   const AccountProfile = (props) => (
-    <Card {...props}>
+    <FormControl {...props}>
+          <Card>
       <CardContent>
         <Box
           sx={{
@@ -69,6 +71,7 @@ import {
         </Button>
       </CardActions>
     </Card>
+    </FormControl>
   );
  
   export default AccountProfile;

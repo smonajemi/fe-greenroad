@@ -7,7 +7,8 @@ import {
   CardHeader,
   Divider,
   Grid,
-  TextField
+  TextField,
+  FormControl
 } from '@mui/material';
 
 const provinces = [
@@ -43,7 +44,7 @@ const AccountProfileDetails = (props) => {
   };
 
   return (
-    <form
+    <FormControl
       autoComplete="off"
       noValidate
       {...props}
@@ -179,7 +180,7 @@ const AccountProfileDetails = (props) => {
           </Button>
         </Box>
       </Card>
-    </form>
+    </FormControl>
   );
 };
 

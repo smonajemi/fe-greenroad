@@ -21,7 +21,6 @@ export const useUserApi = () => {
 
     const createUser = async (user: BackendUser) => {
         const response: BackendUser = await http.post('users/createUser', user);
-        console.log(response)
         return response;
     }
 

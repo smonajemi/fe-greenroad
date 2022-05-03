@@ -3,40 +3,46 @@ import { AppBar, Container, Toolbar, Typography, Box, IconButton, Menu, MenuItem
 import { AnyRecord } from "dns";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
-const pages = [''];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+import {useNavBar} from './hooks/useNavBar'
 
 const NavBar = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
-  const navigate = useNavigate()
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
+  // const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+  // const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  // const navigate = useNavigate()
+  // const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+  //   setAnchorElNav(event.currentTarget);
+  // };
+  // const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+  //   setAnchorElUser(event.currentTarget);
+  // };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+  // const handleCloseNavMenu = () => {
+  //   setAnchorElNav(null);
+  // };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+  // const handleCloseUserMenu = () => {
+  //   setAnchorElUser(null);
+  // };
+  const {
+    anchorElNav,
+    setAnchorElNav,
+    anchorElUser,
+    setAnchorElUser,
+    isDevice,
+    navigate,
+    handleOpenNavMenu,
+    handleOpenUserMenu,
+    handleCloseNavMenu,
+    handleCloseUserMenu,
+    handleProfileOption,
+    pages,
+    loggedInSettings,
+    handleAuthentication,
+    user,
+    settings
+
+  } = useNavBar()
   
-  const handleProfileDropDown = (src: any) => {
-   switch (src) {
-     case 'Dashboard':
-      navigate('/dashboard')
-       break;
-   
-     default:
-      alert(false)
-       break;
-   }
-  }
   return (
     <AppBar position="fixed">
       <Container maxWidth="xl">
@@ -131,7 +137,7 @@ const NavBar = () => {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={() => handleProfileDropDown(setting)}>
+                <MenuItem key={setting} onClick={() => handleProfileOption(setting)}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}

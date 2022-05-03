@@ -1,5 +1,6 @@
 export interface BackendUser {
     data?: any
+    email?; string
     id?: string
     userName: string
     firstName: string

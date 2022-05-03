@@ -4,7 +4,7 @@ import { BackendUser, LoginUser } from "types"
 import { useNavigate } from 'react-router-dom';
 // import { useNotification } from 'components/hooks/useNotification';
 import validator from 'validator'
-import { useLocalStorage } from './useLocalStorage';
+import { useLocalStorage } from '../../components/hooks/useLocalStorage';
 
 export const useAuthentication = () => {
     // const {notify} = useNotification()

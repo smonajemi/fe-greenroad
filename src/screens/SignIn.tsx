@@ -1,14 +1,21 @@
-import React from 'react';
+import React, { FormEvent, useState } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { FunctionComponent } from 'react';
 import { Typography, Container, CssBaseline, Box, Avatar, TextField, FormControlLabel, Checkbox, Button, Grid } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { LockOpenOutlined, LockOutlined } from '@mui/icons-material';
+import { BackendUser, LoginUser } from 'types';
+import { auth } from 'config/firebase';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import routes from 'config/routes';
+
 interface Props {
     setValue: Function
+    handleSignInChange: Function
+    handleSubmit: Function
 }
 
-function Copyright(props: any) {
+const Copyright = (props: any) => {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
@@ -23,16 +30,7 @@ function Copyright(props: any) {
 
 const theme = createTheme();
 
-const SignIn: FunctionComponent<Props> = ({setValue}) => {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
-
+const SignIn: FunctionComponent<Props> = ({setValue, handleSignInChange, handleSubmit}) => {
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -51,7 +49,7 @@ const SignIn: FunctionComponent<Props> = ({setValue}) => {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form" onChange={e => handleSignInChange(e, e?.target?.name)} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
@@ -81,6 +79,7 @@ const SignIn: FunctionComponent<Props> = ({setValue}) => {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              onClick={(e) => handleSubmit(e)}
             >
               Sign In
             </Button>

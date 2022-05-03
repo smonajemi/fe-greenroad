@@ -5,7 +5,7 @@ import Settings from './Settings'
 export interface IDashboardProps {
 }
 
-export function Dashboard (props: IDashboardProps) {
+export const Dashboard = (props: IDashboardProps) => {
   return (
         <Box>
             <Account />

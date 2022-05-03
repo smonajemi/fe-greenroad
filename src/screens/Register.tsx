@@ -13,15 +13,17 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { FunctionComponent } from 'react';
-import { LockOpenOutlined } from '@mui/icons-material';
+
 interface Props {
     setValue: Function
+    handleSignUpChange: Function
+    handleSubmit: Function
 }
-function Copyright(props: any) {
+const Copyright = (props: any) => {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
+      <Link color="inherit" href="/">
         Your Website
       </Link>{' '}
       {new Date().getFullYear()}
@@ -32,16 +34,7 @@ function Copyright(props: any) {
 
 const theme = createTheme();
 
-const Register: FunctionComponent<Props> = ({setValue})  =>{
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
-
+const Register: FunctionComponent<Props> = ({setValue, handleSignUpChange, handleSubmit})  =>{
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -60,7 +53,7 @@ const Register: FunctionComponent<Props> = ({setValue})  =>{
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" noValidate onChange={e => handleSignUpChange(e, e?.target?.name)} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -116,6 +109,7 @@ const Register: FunctionComponent<Props> = ({setValue})  =>{
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              onClick={(e) => handleSubmit(e)}
             >
               Sign Up
             </Button>

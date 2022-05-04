@@ -1,12 +1,12 @@
 export interface BackendUser {
+    key?: string
     data?: any
-    email?; string
+    email?: string
     id?: string
     userName: string
     firstName: string
     lastName: string
     password?: string
-    isDeleted: boolean
 }
 
 export interface User {

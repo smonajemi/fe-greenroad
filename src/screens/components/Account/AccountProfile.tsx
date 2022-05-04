@@ -22,12 +22,12 @@ import { BackendUser } from 'types';
     city: 'Toronto',
     country: 'Canada',
     jobTitle: 'Software Developer',
-    name: 'Sina Monajemi',
     timezone: 'EST'
   };
   
-  const AccountProfile: FunctionComponent<IAccountProfileProps> = ({currentUser}) => (
-          <Card>
+  const AccountProfile: FunctionComponent<IAccountProfileProps> = ({currentUser}) => {
+    return (
+      <Card>
       <CardContent>
         <Box
           sx={{
@@ -66,7 +66,7 @@ import { BackendUser } from 'types';
         </Box>
       </CardContent>
       <Divider />
-      {/* <CardActions> */}
+      <CardActions>
         <Button
           color="primary"
           fullWidth
@@ -75,8 +75,9 @@ import { BackendUser } from 'types';
         >
           Upload picture
         </Button>
-      {/* </CardActions> */}
+      </CardActions>
     </Card>
-  );
+    )
+  }
  
   export default AccountProfile;

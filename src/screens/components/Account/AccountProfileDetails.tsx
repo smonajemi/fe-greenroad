@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from 'react';
+import { FunctionComponent, useState } from "react";
 import {
   Box,
   Button,
@@ -8,64 +8,61 @@ import {
   Divider,
   Grid,
   TextField,
-  FormControl
-} from '@mui/material';
-import { BackendUser } from 'types';
-
+  FormControl,
+} from "@mui/material";
+import { BackendUser } from "types";
+import { useUserApi } from "screens/hooks/use-user-api/useUserApi";
 export interface IAccountProfileDetailsProps {
   currentUser: BackendUser
+  setCurrentUser: Function
+  user: BackendUser
+  setUser: Function
 }
 
 const provinces = [
   {
-    value: 'ontario',
-    label: 'Ontario'
+    value: "ontario",
+    label: "Ontario",
   },
   {
-    value: 'Quebec',
-    label: 'Quebec'
+    value: "Quebec",
+    label: "Quebec",
   },
   {
-    value: 'Alberta',
-    label: 'Alberta'
-  }
+    value: "Alberta",
+    label: "Alberta",
+  },
 ];
 
-const AccountProfileDetails: FunctionComponent<IAccountProfileDetailsProps> = ({currentUser}) => {
-  const [values, setValues] = useState({
-    firstName: 'Sina',
-    lastName: 'Monajemi',
-    email: 'sina.monajemi@me.com',
-    phone: '+16474665659',
-    province: 'Ontario',
-    country: 'Canada'
-  });
-
+const AccountProfileDetails: FunctionComponent<IAccountProfileDetailsProps> = ({
+  currentUser,
+  setCurrentUser,
+  user,
+  setUser
+}) => {
+  const {updateUser} = useUserApi()
+  const [values, setValues] = useState<BackendUser>()
+  
   const handleChange = (event) => {
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value
+    setUser({
+      ...user,
+      [event.target.name]: event.target.value,
     });
   };
 
+  const onSave = async () => {
+    await updateUser(currentUser?.id, currentUser)
+    console.log('onEdit', currentUser)
+  }
+    
   return (
-     <form>
-        <Card>
-        <CardHeader
-          subheader="The information can be edited"
-          title="Profile"
-        />
+    <FormControl>
+      <Card>
+        <CardHeader subheader="The information can be edited" title="Profile" />
         <Divider />
         <CardContent>
-          <Grid
-            container
-            spacing={3}
-          >
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
+          <Grid container spacing={3}>
+            <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
                 helperText="Please specify the first name"
@@ -73,75 +70,55 @@ const AccountProfileDetails: FunctionComponent<IAccountProfileDetailsProps> = ({
                 name="firstName"
                 onChange={handleChange}
                 required
-                value={currentUser?.firstName}
+                value={user?.firstName}
                 variant="outlined"
               />
             </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
+            <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
                 label="Last name"
                 name="lastName"
                 onChange={handleChange}
                 required
-                value={currentUser?.lastName}
+                value={values?.lastName}
                 variant="outlined"
               />
             </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
+            <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
                 label="Email Address"
                 name="email"
                 onChange={handleChange}
                 required
-                value={currentUser?.email}
+                value={values?.userName}
                 variant="outlined"
               />
             </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
+            <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
                 label="Phone Number"
                 name="phone"
                 onChange={handleChange}
                 type="number"
-                value={values.phone}
+                // value={values.phone}
                 variant="outlined"
               />
             </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
+            <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
                 label="Country"
                 name="country"
                 onChange={handleChange}
                 required
-                value={values.country}
+                // value={values.country}
                 variant="outlined"
               />
             </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
+            <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
                 label="Select Province"
@@ -150,14 +127,11 @@ const AccountProfileDetails: FunctionComponent<IAccountProfileDetailsProps> = ({
                 required
                 select
                 SelectProps={{ native: true }}
-                value={values.province}
+                // value={values.province}
                 variant="outlined"
               >
                 {provinces.map((option) => (
-                  <option
-                    key={option.value}
-                    value={option.value}
-                  >
+                  <option key={option.value} value={option.value}>
                     {option.label}
                   </option>
                 ))}
@@ -168,21 +142,18 @@ const AccountProfileDetails: FunctionComponent<IAccountProfileDetailsProps> = ({
         <Divider />
         <Box
           sx={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            p: 2
+            display: "flex",
+            justifyContent: "flex-end",
+            p: 2,
           }}
         >
-          <Button
-            color="primary"
-            variant="contained"
-          >
+          <Button color="primary" variant="contained" onClick={() => onSave()}>
             Save details
           </Button>
         </Box>
       </Card>
-     </form>
+    </FormControl>
   );
 };
 
-  export default AccountProfileDetails;
+export default AccountProfileDetails;

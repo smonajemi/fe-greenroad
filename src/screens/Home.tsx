@@ -9,9 +9,7 @@ const Home = ({}: Props) => {
 
   return (
     <MainContainer title={'Home'} >
-      <Center>
-  
-    </Center>
+        
     </MainContainer>
   );
 };

@@ -1,22 +1,13 @@
-import { Box } from '@mui/system';
-import { useLocalStorage } from 'components/hooks/useLocalStorage';
-import React, { useEffect, useState } from 'react';
-import { BackendUser } from 'types';
-import Account from './Account';
+import { Box } from '@mui/system'
+import { useAuth } from 'components/hooks/useAuth'
+import Account from './Account'
 import Settings from './Settings'
-export interface IDashboardProps {
-}
 
-export const Dashboard = (props: IDashboardProps) => {
-  const [currentUser, setCurrentUser] = useState<BackendUser>()
-  const {getItem} = useLocalStorage()
-  // useEffect(() => {
-  //   setCurrentUser(JSON.parse(getItem('user')))
-  // }, [getItem])
-
-  return (
+export const Dashboard = () => {
+const {backendUser, setBackendUser} = useAuth()
+return (
         <Box>
-            <Account currentUser={currentUser} />
+            <Account currentUser={backendUser} setCurrentUser={setBackendUser}/>
             <Settings />
         </Box>
   );

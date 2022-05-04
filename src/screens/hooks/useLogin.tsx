@@ -53,18 +53,7 @@ export const useLogin = () => {
       notify("error", userLogin?.user?.user?.data?.message);
     } else {
       setItem("userId", userLogin?.user?.user?.data?.id)
-      signInWithEmailAndPassword(
-        auth,
-        userLogin?.user?.user?.data?.userName,
-        userLogin?.user?.user?.data?.password
-      )
-        .then(() => {
-          console.info(`${userLogin?.user?.user?.data?.userName} is logged in`);
-          navigate("/");
-        })
-        .catch((error) => {
-          setErrorMessage(error.code + ": " + error.message);
-        });
+      navigate("/");
     }
   };
 
@@ -74,18 +63,7 @@ export const useLogin = () => {
         notify("error", JSON.stringify(user?.data?.message));
       } else {
         setItem("userId", user?.data?.id);
-        createUserWithEmailAndPassword(
-          auth,
-          user?.data?.userName,
-          user?.data?.password
-        )
-        .then(() => {
-          console.info(`${user?.data?.userName} is registered`);
-          navigate("/");
-        })
-        .catch((error) => {
-          setErrorMessage(error.code + ": " + error.message);
-        });
+        navigate("/")
       }
   };
 

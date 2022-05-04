@@ -1,16 +1,13 @@
-import { Box } from '@mui/system';
-import { useAuth } from 'components/hooks/useAuth';
-import Account from './Account';
+import { Box } from '@mui/system'
+import { useAuth } from 'components/hooks/useAuth'
+import Account from './Account'
 import Settings from './Settings'
-export interface IDashboardProps {
-}
 
-export const Dashboard = (props: IDashboardProps) => {
-  const {currentUser, setCurrentUser} = useAuth()
-
-  return (
+export const Dashboard = () => {
+const {backendUser, setBackendUser} = useAuth()
+return (
         <Box>
-            <Account currentUser={currentUser} setCurrentUser={setCurrentUser}/>
+            <Account currentUser={backendUser} setCurrentUser={setBackendUser}/>
             <Settings />
         </Box>
   );

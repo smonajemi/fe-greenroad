@@ -11,6 +11,7 @@ import {
   createUserWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "config/firebase";
+import { useAuth } from "components/hooks/useAuth";
 
 export const useLogin = () => {
   const tabIdToURL: { [id: number]: string } = {
@@ -23,6 +24,7 @@ export const useLogin = () => {
   if (action === "register") {
     indexFromUrl = 1;
   }
+
   const { setItem } = useLocalStorage();
   const { createUser, loginUser } = useUserApi();
   const navigate = useNavigate();
@@ -34,7 +36,6 @@ export const useLogin = () => {
   const [isValidated, setValidation] = useState<boolean>(false);
   const [isFirstName, setFirstNameValidation] = useState<boolean>(false);
   const [isLastName, setLastNameValidation] = useState<boolean>(false);
-
   const [errorMessage, setErrorMessage] = useState<string>("");
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -48,11 +49,10 @@ export const useLogin = () => {
       src?.email?.toLowerCase(),
       src?.password
     );
-    console.log(userLogin)
     if (!userLogin?.user?.user?.data?.id) {
       notify("error", userLogin?.user?.user?.data?.message);
     } else {
-      setItem("user", JSON.stringify(userLogin?.user?.user?.data));
+      setItem("userId", userLogin?.user?.user?.data?.id)
       signInWithEmailAndPassword(
         auth,
         userLogin?.user?.user?.data?.userName,
@@ -73,7 +73,7 @@ export const useLogin = () => {
       if (!user?.data?.id) {
         notify("error", JSON.stringify(user?.data?.message));
       } else {
-        setItem("user", JSON.stringify(user?.data));
+        setItem("userId", user?.data?.id);
         createUserWithEmailAndPassword(
           auth,
           user?.data?.userName,

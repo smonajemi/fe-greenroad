@@ -24,6 +24,11 @@ export const useUserApi = () => {
         return response;
     }
 
+    const updateUser = async (id: string, user: BackendUser) => {
+        const response: BackendUser = await http.put(`users/updateUser/${id}`, user)
+        return response;
+    }
+
     const loginUser = async (userName:string, password: string) => {
         const response: LoginUser = {user: {user: null}, responseMessage: ''}
         try {
@@ -40,6 +45,7 @@ export const useUserApi = () => {
         fetchUser,
         fetchUserById,
         createUser,
+        updateUser,
         loginUser
     } as const
 }

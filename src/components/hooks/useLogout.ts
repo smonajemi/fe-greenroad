@@ -14,7 +14,7 @@ export const useLogout = () => {
     signOut(auth)
       .then(() => {
         navigate("/login");
-        clearItem("user");
+        clearItem("userId");
       })
       .catch((error) => {
         console.error(error);

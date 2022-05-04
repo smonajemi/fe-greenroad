@@ -7,7 +7,6 @@ export interface BackendUser {
     firstName: string
     lastName: string
     password?: string
-    isDeleted: boolean
 }
 
 export interface User {

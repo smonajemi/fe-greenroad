@@ -1,4 +1,4 @@
-import { FunctionComponent, useEffect, useState } from "react";
+import { FunctionComponent, useState } from "react";
 import {
   Box,
   Button,
@@ -11,10 +11,12 @@ import {
   FormControl,
 } from "@mui/material";
 import { BackendUser } from "types";
-
+import { useUserApi } from "screens/hooks/use-user-api/useUserApi";
 export interface IAccountProfileDetailsProps {
-  currentUser: BackendUser;
+  currentUser: BackendUser
   setCurrentUser: Function
+  user: BackendUser
+  setUser: Function
 }
 
 const provinces = [
@@ -34,43 +36,25 @@ const provinces = [
 
 const AccountProfileDetails: FunctionComponent<IAccountProfileDetailsProps> = ({
   currentUser,
-  setCurrentUser
+  setCurrentUser,
+  user,
+  setUser
 }) => {
-  const [values, setValues] = useState<BackendUser>(currentUser);
-
+  const {updateUser} = useUserApi()
+  const [values, setValues] = useState<BackendUser>()
+  
   const handleChange = (event) => {
-    setValues({
-      ...values,
+    setUser({
+      ...user,
       [event.target.name]: event.target.value,
     });
   };
-  useEffect(() => {
-    console.log(values)
-  }, [values])
 
-  const onEdit = (key: string) => {
-    const profileToEdit = currentUser?.data?.filter(k => k?.key !== key)
-    setCurrentUser(profileToEdit)
+  const onSave = async () => {
+    await updateUser(currentUser?.id, currentUser)
+    console.log('onEdit', currentUser)
   }
-
-  const onSave = value => {
-    if (value?.key) {
-      const index = currentUser?.data?.findIndex(x => x?.key === value?.key)
-      const newArray = currentUser?.data
-      newArray[index] = value
-      setCurrentUser({...currentUser, data: [...newArray]})
-    } else {
-      const uniqueKey = new Date().getTime().toString()
-      if (currentUser?.data) {
-        console.log(currentUser)
-        setCurrentUser({...currentUser, data: [...currentUser?.data, {key: uniqueKey, ...value}]})
-      } else {
-        setCurrentUser({...currentUser, data: [{key: uniqueKey, ...value}]})
-      }
-    }
-    setCurrentUser(undefined)
-  }
-
+    
   return (
     <FormControl>
       <Card>
@@ -86,7 +70,7 @@ const AccountProfileDetails: FunctionComponent<IAccountProfileDetailsProps> = ({
                 name="firstName"
                 onChange={handleChange}
                 required
-                value={currentUser?.firstName || values?.firstName}
+                value={user?.firstName}
                 variant="outlined"
               />
             </Grid>
@@ -108,7 +92,7 @@ const AccountProfileDetails: FunctionComponent<IAccountProfileDetailsProps> = ({
                 name="email"
                 onChange={handleChange}
                 required
-                value={currentUser?.email}
+                value={values?.userName}
                 variant="outlined"
               />
             </Grid>
@@ -163,7 +147,7 @@ const AccountProfileDetails: FunctionComponent<IAccountProfileDetailsProps> = ({
             p: 2,
           }}
         >
-          <Button color="primary" variant="contained" onClick={() => onSave(values)}>
+          <Button color="primary" variant="contained" onClick={() => onSave()}>
             Save details
           </Button>
         </Box>

@@ -1,15 +1,21 @@
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
+import { useUserApi } from "screens/hooks/use-user-api/useUserApi";
 import { BackendUser } from "types";
 import { useLocalStorage } from "./useLocalStorage";
 export const useAuth = () => {
-const [currentUser, setCurrentUser] = useState<BackendUser>()
+const [backendUser, setBackendUser] = useState<BackendUser>()
 const {getItem} = useLocalStorage()
-const user = getItem('user')
-useEffect(() => {
-  setCurrentUser(JSON.parse(user))
-}, [user])
+const {fetchUserById} = useUserApi()
+const userId = getItem('userId')
+useLayoutEffect(() => {
+  const user = async () => {
+    const loggedUser = await fetchUserById(userId)
+    setBackendUser(loggedUser?.data)
+  }
+  user()
+}, [userId])
   return {
-    currentUser,
-    setCurrentUser
+    backendUser,
+    setBackendUser
   } as const;
 };

@@ -42,7 +42,7 @@ const AccountProfileDetails: FunctionComponent<IAccountProfileDetailsProps> = ({
 }) => {
   const {updateUser} = useUserApi()
   const [values, setValues] = useState<BackendUser>()
-  
+
   const handleChange = (event) => {
     setUser({
       ...user,
@@ -51,8 +51,8 @@ const AccountProfileDetails: FunctionComponent<IAccountProfileDetailsProps> = ({
   };
 
   const onSave = async () => {
-    await updateUser(currentUser?.id, currentUser)
-    console.log('onEdit', currentUser)
+    setCurrentUser({...currentUser, ...user})
+    await updateUser(user?.id, user)
   }
     
   return (
@@ -70,7 +70,7 @@ const AccountProfileDetails: FunctionComponent<IAccountProfileDetailsProps> = ({
                 name="firstName"
                 onChange={handleChange}
                 required
-                value={user?.firstName}
+                value={user?.firstName || ''}
                 variant="outlined"
               />
             </Grid>
@@ -81,7 +81,7 @@ const AccountProfileDetails: FunctionComponent<IAccountProfileDetailsProps> = ({
                 name="lastName"
                 onChange={handleChange}
                 required
-                value={values?.lastName}
+                value={user?.lastName || ''}
                 variant="outlined"
               />
             </Grid>
@@ -92,7 +92,7 @@ const AccountProfileDetails: FunctionComponent<IAccountProfileDetailsProps> = ({
                 name="email"
                 onChange={handleChange}
                 required
-                value={values?.userName}
+                value={user?.userName || ''}
                 variant="outlined"
               />
             </Grid>
@@ -103,7 +103,7 @@ const AccountProfileDetails: FunctionComponent<IAccountProfileDetailsProps> = ({
                 name="phone"
                 onChange={handleChange}
                 type="number"
-                // value={values.phone}
+                // value={user.phone || ''}
                 variant="outlined"
               />
             </Grid>
@@ -114,7 +114,7 @@ const AccountProfileDetails: FunctionComponent<IAccountProfileDetailsProps> = ({
                 name="country"
                 onChange={handleChange}
                 required
-                // value={values.country}
+                // value={user.country || ''}
                 variant="outlined"
               />
             </Grid>
@@ -127,7 +127,7 @@ const AccountProfileDetails: FunctionComponent<IAccountProfileDetailsProps> = ({
                 required
                 select
                 SelectProps={{ native: true }}
-                // value={values.province}
+                // value={user.province || ''}
                 variant="outlined"
               >
                 {provinces.map((option) => (

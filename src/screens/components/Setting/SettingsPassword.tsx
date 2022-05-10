@@ -1,21 +1,34 @@
-import { useState } from 'react';
-import { Box, Button, Card, CardContent, CardHeader, Divider, TextField, FormControl  } from '@mui/material';
+import { FunctionComponent, useState } from 'react';
+import { Box, Button, Card, CardContent, CardHeader, Divider, TextField, FormControl, Grid  } from '@mui/material';
+import { BackendUser } from 'types';
+import { useUserApi } from 'screens/hooks/use-user-api/useUserApi';
 
-export const SettingsPassword = (props) => {
-  const [values, setValues] = useState({
-    password: '',
-    confirm: ''
-  });
+export interface ISettingsPasswordProps {
+  currentUser: BackendUser
+  setCurrentUser: Function
+  user: BackendUser
+  setUser: Function
+}
 
+const SettingsPassword: FunctionComponent<ISettingsPasswordProps> = ({  
+  currentUser,
+  setCurrentUser,
+  user,
+  setUser}) => {
+  const {updateUser} = useUserApi()
   const handleChange = (event) => {
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value
+    setUser({
+      ...user,
+      [event.target.name]: event.target.value,
     });
   };
+  const onUpdate = async () => {
+    setCurrentUser({...currentUser, ...user})
+    await updateUser(user?.id, user)
+  }
 
   return (
-    <FormControl  {...props}>
+    <FormControl>
       <Card>
         <CardHeader
           subheader="Update password"
@@ -23,26 +36,31 @@ export const SettingsPassword = (props) => {
         />
         <Divider />
         <CardContent>
-          <TextField
-            fullWidth
-            label="Password"
-            margin="normal"
-            name="password"
-            onChange={handleChange}
-            type="password"
-            value={values.password}
-            variant="outlined"
-          />
-          <TextField
-            fullWidth
-            label="Confirm password"
-            margin="normal"
-            name="confirm"
-            onChange={handleChange}
-            type="password"
-            value={values.confirm}
-            variant="outlined"
-          />
+          <Grid container spacing={3}>
+            <Grid item md={6} xs={12}>
+              <TextField
+                fullWidth
+                helperText="Please specify the first name"
+                label="First name"
+                name="firstName"
+                onChange={handleChange}
+                required
+                value={user?.firstName || ''}
+                variant="outlined"
+              />
+            </Grid>
+            <Grid item md={6} xs={12}>
+              <TextField
+                fullWidth
+                label="Last name"
+                name="lastName"
+                onChange={handleChange}
+                required
+                value={user?.lastName || ''}
+                variant="outlined"
+              />
+            </Grid>
+          </Grid>
         </CardContent>
         <Divider />
         <Box
@@ -55,6 +73,7 @@ export const SettingsPassword = (props) => {
           <Button
             color="primary"
             variant="contained"
+            onClick={() => onUpdate()}
           >
             Update
           </Button>
@@ -63,3 +82,4 @@ export const SettingsPassword = (props) => {
     </FormControl>
   );
 };
+export default SettingsPassword;

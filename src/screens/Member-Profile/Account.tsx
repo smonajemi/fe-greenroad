@@ -1,6 +1,7 @@
 import { Box, Container, Grid, Typography } from "@mui/material";
 import { MainContainer } from "components/MainContainer";
 import { FunctionComponent, useEffect, useState } from "react";
+import SettingsPassword from "screens/components/Setting/SettingsPassword";
 import { BackendUser } from "types";
 import AccountProfile from "../components/Account/AccountProfile";
 import AccountProfileDetails from "../components/Account/AccountProfileDetails";
@@ -43,6 +44,9 @@ return (
               user={user}
               setUser={setUser}
             />
+          </Grid>
+          <Grid item lg={8} md={6} xs={12}>
+
           </Grid>
         </Grid>
       </Container>

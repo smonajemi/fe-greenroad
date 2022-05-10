@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import { BackendUser } from "types";
 import { useUserApi } from "screens/hooks/use-user-api/useUserApi";
+import SettingsPassword from "../Setting/SettingsPassword";
 export interface IAccountProfileDetailsProps {
   currentUser: BackendUser
   setCurrentUser: Function
@@ -92,6 +93,7 @@ const AccountProfileDetails: FunctionComponent<IAccountProfileDetailsProps> = ({
                 name="email"
                 onChange={handleChange}
                 required
+                disabled={true}
                 value={user?.username || ''}
                 variant="outlined"
               />
@@ -151,6 +153,13 @@ const AccountProfileDetails: FunctionComponent<IAccountProfileDetailsProps> = ({
             Save details
           </Button>
         </Box>
+
+        {/* <Grid item md={6} xs={12}> */}
+        <SettingsPassword currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
+              user={user}
+              setUser={setUser}/>
+        {/* </Grid> */}
       </Card>
     </FormControl>
   );

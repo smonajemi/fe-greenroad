@@ -32,12 +32,8 @@ export const useUserApi = () => {
 
     const loginUser = async (username:string, password: string) => {
         const response: LoginUser = {user: {user: null}, responseMessage: ''}
-        try {
-            const user: BackendUser = await http.put(`user/login`, {username: username, password: password})
-            response.user.user = user
-        } catch (error) {
-            console.log(error)
-        }
+        const user: BackendUser = await http.put(`user/login`, {username: username, password: password})
+        response.user.user = user
         return response
     }
 

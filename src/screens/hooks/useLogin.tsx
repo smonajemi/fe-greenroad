@@ -51,7 +51,6 @@ export const useLogin = () => {
     );
     if (!userLogin?.user?.user?.data?.id) {
       notify("error", 'Invalid Username or Password');
-      console.log(userLogin)
     } else {
       setItem("userId", userLogin?.user?.user?.data?.id)
       navigate("/");
@@ -127,7 +126,6 @@ export const useLogin = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('currentUser', currentUser)
     value === 0 ? login(currentUser) : register(currentUser)
   };
 

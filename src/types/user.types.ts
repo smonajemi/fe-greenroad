@@ -3,7 +3,7 @@ export interface BackendUser {
     data?: any
     email?: string
     id?: string
-    userName: string
+    username: string
     firstName: string
     lastName: string
     password?: string

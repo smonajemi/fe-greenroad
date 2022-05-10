@@ -2,10 +2,12 @@ import { useState, MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { useResponsiveness } from "components/hooks/useResponsiveness";
 import { useLogout } from "./useLogout";
+import { useAuth } from "./useAuth";
 
 export const useNavBar = () => {
   const { logout } = useLogout();
   const { isDevice } = useResponsiveness();
+  const { isAuthenticated } = useAuth()
   const navigate = useNavigate();
   const pages = [""];
   const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -57,5 +59,6 @@ export const useNavBar = () => {
     pages,
     settings,
     loggedInSettings,
+    isAuthenticated
   } as const;
 };

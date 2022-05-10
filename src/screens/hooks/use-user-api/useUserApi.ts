@@ -21,6 +21,7 @@ export const useUserApi = () => {
 
     const createUser = async (user: BackendUser) => {
         const response: BackendUser = await http.post('users/createUser', user);
+        if (user)
         return response;
     }
 
@@ -29,13 +30,13 @@ export const useUserApi = () => {
         return response;
     }
 
-    const loginUser = async (userName:string, password: string) => {
+    const loginUser = async (username:string, password: string) => {
         const response: LoginUser = {user: {user: null}, responseMessage: ''}
         try {
-            const user: BackendUser = await http.put(`user/login`, {userName: userName, password: password})
+            const user: BackendUser = await http.put(`user/login`, {username: username, password: password})
             response.user.user = user
         } catch (error) {
-            
+            console.log(error)
         }
         return response
     }

@@ -1,23 +1,22 @@
 import { useEffect, useState } from "react";
 import { Box, CircularProgress } from "@mui/material";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { auth } from "./config/firebase";
+
 import routes from "./config/routes";
 import Center from "./components/utils/Center";
 import AuthChecker from "./components/auth/AuthChecker";
+import { useAuth } from "components/hooks/useAuth";
 
 function App() {
   const [loading, setLoading] = useState(true);
+  const {isAuthenticated} = useAuth()
+  
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        console.info("User detected.");
-      } else {
-        console.info("No user detected");
+      if (isAuthenticated) {
+        console.info("User detected")
+        setLoading(false)
       }
-      setLoading(false);
-    });
-  }, []);
+  }, [isAuthenticated])
 
   if (loading)
     return (

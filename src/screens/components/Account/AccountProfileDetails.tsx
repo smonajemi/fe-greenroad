@@ -92,7 +92,7 @@ const AccountProfileDetails: FunctionComponent<IAccountProfileDetailsProps> = ({
                 name="email"
                 onChange={handleChange}
                 required
-                value={user?.userName || ''}
+                value={user?.username || ''}
                 variant="outlined"
               />
             </Grid>

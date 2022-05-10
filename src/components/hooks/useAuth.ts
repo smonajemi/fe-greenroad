@@ -7,15 +7,19 @@ const [backendUser, setBackendUser] = useState<BackendUser>()
 const {getItem} = useLocalStorage()
 const {fetchUserById} = useUserApi()
 const userId = getItem('userId')
+const [isAuthenticated, setAuthentication] = useState<boolean>(!userId)
+
 useLayoutEffect(() => {
   const user = async () => {
     const loggedUser = await fetchUserById(userId)
     setBackendUser(loggedUser?.data)
   }
+  !userId ? setAuthentication(false) : setAuthentication(true)
   user()
-}, [userId])
+}, [userId, isAuthenticated])
   return {
     backendUser,
-    setBackendUser
+    setBackendUser,
+    isAuthenticated
   } as const;
 };

@@ -50,7 +50,8 @@ export const useLogin = () => {
       src?.password
     );
     if (!userLogin?.user?.user?.data?.id) {
-      notify("error", userLogin?.user?.user?.data?.message);
+      notify("error", 'Invalid Username or Password');
+      console.log(userLogin)
     } else {
       setItem("userId", userLogin?.user?.user?.data?.id)
       navigate("/");
@@ -60,7 +61,7 @@ export const useLogin = () => {
   const register = async (src: any) => {
       const user: BackendUser = await createUser(src);
       if (!user?.data?.id) {
-        notify("error", JSON.stringify(user?.data?.message));
+        notify("error", `${src?.data?.username} already exist`);
       } else {
         setItem("userId", user?.data?.id);
         navigate("/")
@@ -106,7 +107,7 @@ export const useLogin = () => {
       case "email":
         setCurrentUser({
           ...currentUser,
-          userName: e?.target?.value,
+          username: e?.target?.value,
           [e?.target?.name]: e?.target?.value,
         });
         setEmailValidation(validator.isEmail(e?.target?.value));
@@ -126,8 +127,8 @@ export const useLogin = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    value === 0 ? login(currentUser) : register(currentUser);
-    setCurrentUser(undefined);
+    console.log('currentUser', currentUser)
+    value === 0 ? login(currentUser) : register(currentUser)
   };
 
   return {

@@ -51,7 +51,7 @@ const SettingsPassword: FunctionComponent<ISettingsPasswordProps> = ({
 
   return (
     <FormControl>
-      <Card>
+      <Card style={{marginTop: '2em'}}>
         <CardHeader
           subheader="Update password"
           title="Password"

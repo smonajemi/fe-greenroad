@@ -15,10 +15,10 @@ import { useUserApi } from "screens/hooks/use-user-api/useUserApi";
 import SettingsPassword from "../Setting/SettingsPassword";
 
 export interface IAccountProfileDetailsProps {
-  currentUser: BackendUser
-  setCurrentUser: Function
-  user: BackendUser
-  setUser: Function
+  currentUser: BackendUser;
+  setCurrentUser: Function;
+  user: BackendUser;
+  setUser: Function;
 }
 
 const provinces = [
@@ -40,10 +40,10 @@ const AccountProfileDetails: FunctionComponent<IAccountProfileDetailsProps> = ({
   currentUser,
   setCurrentUser,
   user,
-  setUser
+  setUser,
 }) => {
-  const {updateUser} = useUserApi()
-  const [values, setValues] = useState<BackendUser>()
+  const { updateUser } = useUserApi();
+  const [values, setValues] = useState<BackendUser>();
 
   const handleChange = (event) => {
     setUser({
@@ -53,10 +53,10 @@ const AccountProfileDetails: FunctionComponent<IAccountProfileDetailsProps> = ({
   };
 
   const onSave = async () => {
-    setCurrentUser({...currentUser, ...user})
-    await updateUser(user?.id, user)
-  }
-    
+    setCurrentUser({ ...currentUser, ...user });
+    await updateUser(user?.id, user);
+  };
+
   return (
     <FormControl>
       <Card>
@@ -72,7 +72,7 @@ const AccountProfileDetails: FunctionComponent<IAccountProfileDetailsProps> = ({
                 name="firstName"
                 onChange={handleChange}
                 required
-                value={user?.firstName || ''}
+                value={user?.firstName || ""}
                 variant="outlined"
               />
             </Grid>
@@ -83,7 +83,7 @@ const AccountProfileDetails: FunctionComponent<IAccountProfileDetailsProps> = ({
                 name="lastName"
                 onChange={handleChange}
                 required
-                value={user?.lastName || ''}
+                value={user?.lastName || ""}
                 variant="outlined"
               />
             </Grid>
@@ -95,7 +95,7 @@ const AccountProfileDetails: FunctionComponent<IAccountProfileDetailsProps> = ({
                 onChange={handleChange}
                 required
                 disabled={true}
-                value={user?.username || ''}
+                value={user?.username || ""}
                 variant="outlined"
               />
             </Grid>
@@ -155,10 +155,12 @@ const AccountProfileDetails: FunctionComponent<IAccountProfileDetailsProps> = ({
           </Button>
         </Box>
       </Card>
-      <SettingsPassword currentUser={currentUser}
-              setCurrentUser={setCurrentUser}
-              user={user}
-              setUser={setUser}/>
+      <SettingsPassword
+        currentUser={currentUser}
+        setCurrentUser={setCurrentUser}
+        user={user}
+        setUser={setUser}
+      />
     </FormControl>
   );
 };

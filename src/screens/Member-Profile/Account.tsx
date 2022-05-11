@@ -34,9 +34,6 @@ return (
     position='absolute'
     >
       <Container maxWidth="lg">
-        <Typography sx={{ mb: 2, mt: 2}} variant="h4">
-          Account
-        </Typography>
         <Grid container spacing={5}>
           <Grid item lg={4} md={6} xs={12}>
             <AccountProfile currentUser={currentUser} />
@@ -48,9 +45,6 @@ return (
               user={user}
               setUser={setUser}
             />
-          </Grid>
-          <Grid item lg={8} md={6} xs={12}>
-
           </Grid>
         </Grid>
       </Container>

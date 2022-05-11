@@ -8,6 +8,7 @@ import {
     CardContent,
     Divider,
     FormControl,
+    TextField,
     Typography
   } from '@mui/material';
 import { FunctionComponent } from 'react';
@@ -71,9 +72,10 @@ import { BackendUser } from 'types';
           color="primary"
           fullWidth
           variant="text"
-          onClick={() => alert('uploaded')}
+          component="label"
         >
           Upload picture
+          <input type="file" hidden />
         </Button>
       </CardActions>
     </Card>

@@ -24,9 +24,16 @@ return (
   <MainContainer title={"Account"}>
     <Box
       component="main"
-      sx={{
+      style={{
         flexGrow: 1,
-        py: 8,
+        padding:'6em 2em 0em 2em',
+        overflow: 'hidden',
+      }}>
+    <Box
+      style={{
+        overflow: 'hidden',
+        display: 'flex',
+        justifyContent: 'center'
       }}
     >
       <Container maxWidth="lg">
@@ -50,6 +57,7 @@ return (
           </Grid>
         </Grid>
       </Container>
+    </Box>
     </Box>
   </MainContainer>
 )};

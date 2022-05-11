@@ -153,14 +153,11 @@ const AccountProfileDetails: FunctionComponent<IAccountProfileDetailsProps> = ({
             Save details
           </Button>
         </Box>
-
-        {/* <Grid item md={6} xs={12}> */}
-        <SettingsPassword currentUser={currentUser}
+      </Card>
+      <SettingsPassword currentUser={currentUser}
               setCurrentUser={setCurrentUser}
               user={user}
               setUser={setUser}/>
-        {/* </Grid> */}
-      </Card>
     </FormControl>
   );
 };

@@ -1,7 +1,8 @@
 import { FunctionComponent, useState } from 'react';
-import { Box, Button, Card, CardContent, CardHeader, Divider, TextField, FormControl, Grid  } from '@mui/material';
+import { Box, Button, Card, CardContent, CardHeader, Divider, TextField, FormControl, Grid, IconButton, InputAdornment  } from '@mui/material';
 import { BackendUser } from 'types';
 import { useUserApi } from 'screens/hooks/use-user-api/useUserApi';
+import { VisibilityOff, Visibility } from '@mui/icons-material';
 
 export interface ISettingsPasswordProps {
   currentUser: BackendUser
@@ -17,15 +18,36 @@ const SettingsPassword: FunctionComponent<ISettingsPasswordProps> = ({
   setUser}) => {
   const {updateUser} = useUserApi()
   const handleChange = (event) => {
-    setUser({
-      ...user,
-      [event.target.name]: event.target.value,
-    });
+    setValues({ ...values,  [event.target.name]: event.target.value });
   };
   const onUpdate = async () => {
     setCurrentUser({...currentUser, ...user})
     await updateUser(user?.id, user)
   }
+
+    const handleClickShowPassword = (src: any) => {
+      switch (src) {
+        case 'password':
+          setValues({
+            ...values,
+            showPassword: !values.showPassword
+          });
+          break;
+        case 'rePassword':
+          setValues({
+            ...values,
+            showRePassword: !values.showRePassword
+          });
+          break;
+      }
+  };
+
+  const [values, setValues] = useState({
+    password: '',
+    rePassword: '',
+    showPassword: false,
+    showRePassword: false,
+  });
 
   return (
     <FormControl>
@@ -40,24 +62,47 @@ const SettingsPassword: FunctionComponent<ISettingsPasswordProps> = ({
             <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
-                helperText="Please specify the first name"
-                label="First name"
-                name="firstName"
-                onChange={handleChange}
-                required
-                value={user?.firstName || ''}
+                label="Password"
+                name="password"
                 variant="outlined"
+                type={values.showPassword ? 'text' : 'password'}
+                value={values.password}
+                onChange={handleChange}
+                  InputProps={{
+               endAdornment:
+               <InputAdornment position="end">
+               <IconButton
+                 aria-label="toggle password visibility"
+                 onClick={() => handleClickShowPassword('password')}
+                 edge="end"
+               >
+                 {values.showPassword ? <VisibilityOff /> : <Visibility />}
+               </IconButton>
+             </InputAdornment>
+               }}
               />
             </Grid>
             <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
-                label="Last name"
-                name="lastName"
-                onChange={handleChange}
-                required
-                value={user?.lastName || ''}
+                label="Password"
+                name="rePassword"
                 variant="outlined"
+                type={values.showRePassword ? 'text' : 'password'}
+                value={values.rePassword}
+                onChange={handleChange}
+                InputProps={{
+               endAdornment:
+               <InputAdornment position="end">
+               <IconButton
+                 aria-label="toggle password visibility"
+                 onClick={() => handleClickShowPassword('rePassword')}
+                 edge="end"
+               >
+                 {values.showRePassword ? <VisibilityOff /> : <Visibility />}
+               </IconButton>
+             </InputAdornment>
+               }}
               />
             </Grid>
           </Grid>
@@ -74,6 +119,7 @@ const SettingsPassword: FunctionComponent<ISettingsPasswordProps> = ({
             color="primary"
             variant="contained"
             onClick={() => onUpdate()}
+            disabled={true}
           >
             Update
           </Button>

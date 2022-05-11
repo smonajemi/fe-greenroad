@@ -10,8 +10,7 @@ export const useNavBar = () => {
   const { isAuthenticated } = useAuth()
   const navigate = useNavigate();
   const pages = [""];
-  const settings = ["Profile", "Account", "Dashboard", "Logout"];
-  const loggedInSettings = ["Profile", "Logout"];
+  const settings = ["Profile", "Logout"];
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
@@ -32,11 +31,8 @@ export const useNavBar = () => {
 
   const handleProfileOption = (src: any) => {
     switch (src) {
-      case "Dashboard":
-        navigate("/dashboard");
-        break;
-      case "Account":
-        navigate("/account");
+      case "Profile":
+        navigate("/profile");
         break;
       case "Logout":
         logout();
@@ -58,7 +54,6 @@ export const useNavBar = () => {
     handleProfileOption,
     pages,
     settings,
-    loggedInSettings,
     isAuthenticated
   } as const;
 };

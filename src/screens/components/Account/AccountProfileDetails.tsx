@@ -13,6 +13,7 @@ import {
 import { BackendUser } from "types";
 import { useUserApi } from "screens/hooks/use-user-api/useUserApi";
 import SettingsPassword from "../Setting/SettingsPassword";
+
 export interface IAccountProfileDetailsProps {
   currentUser: BackendUser
   setCurrentUser: Function

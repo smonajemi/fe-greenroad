@@ -43,9 +43,9 @@ const routes: RouteType[] = [
     protected: true,
   },
   {
-    path: "/dashboard",
+    path: "/profile",
     component: Dashboard,
-    name: "Dashboard",
+    name: "Member Profile",
     protected: true,
   },
 ];

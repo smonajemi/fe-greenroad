@@ -24,27 +24,24 @@ return (
   <MainContainer title={"Account"}>
     <Box
       component="main"
-      style={{
-        flexGrow: 1,
-        padding:'6em 2em 0em 2em',
-        overflow: 'hidden',
-      }}>
+      display="flex" 
+      alignItems="center"
+      justifyContent="center"
+      mt='30em'
+      >
     <Box
-      style={{
-        overflow: 'hidden',
-        display: 'flex',
-        justifyContent: 'center'
-      }}
+    m="auto"
+    position='absolute'
     >
       <Container maxWidth="lg">
-        <Typography sx={{ mb: 3 }} variant="h4">
+        <Typography sx={{ mb: 2, mt: 2}} variant="h4">
           Account
         </Typography>
-        <Grid container spacing={3}>
+        <Grid container spacing={5}>
           <Grid item lg={4} md={6} xs={12}>
             <AccountProfile currentUser={currentUser} />
           </Grid>
-          <Grid item lg={8} md={6} xs={12}>
+          <Grid item lg={8} md={10} xs={12}>
             <AccountProfileDetails
               currentUser={currentUser}
               setCurrentUser={setCurrentUser}

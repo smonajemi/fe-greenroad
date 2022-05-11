@@ -74,7 +74,7 @@ import { BackendUser } from 'types';
           variant="text"
           component="label"
         >
-          Upload picture
+          Upload Avatar
           <input type="file" hidden />
         </Button>
       </CardActions>

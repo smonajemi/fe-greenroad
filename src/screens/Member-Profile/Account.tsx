@@ -15,42 +15,48 @@ const Account: FunctionComponent<IAccountProps> = ({
   currentUser,
   setCurrentUser,
 }) => {
-  const [user, setUser] = useState<BackendUser>()
+  const [user, setUser] = useState<BackendUser>();
   useEffect(() => {
-    setUser(currentUser)
-  },[currentUser])
-  
-return (
-  <MainContainer title={"Account"}>
+    setUser(currentUser);
+  }, [currentUser]);
+
+  return (
     <Box
       component="main"
-      display="flex" 
+      display="flex"
       alignItems="center"
       justifyContent="center"
-      mt='30em'
-      >
-    <Box
-    m="auto"
-    position='absolute'
+      mt="6em"
     >
-      <Container maxWidth="lg">
-        <Grid container spacing={5}>
-          <Grid item lg={4} md={6} xs={12}>
-            <AccountProfile currentUser={currentUser} />
+      <Box
+        m="auto"
+      >
+        <Container maxWidth="lg">
+          <Grid container spacing={3}>
+            <Grid item lg={4} md={6} xs={12}>
+              <AccountProfile currentUser={currentUser} />
+            </Grid>
+            <Grid item lg={8} md={10} xs={12}>
+              <Box width='100%'>
+              <AccountProfileDetails
+                currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
+                user={user}
+                setUser={setUser}
+              />
+              <SettingsPassword
+                currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
+                user={user}
+                setUser={setUser}
+              />
+              </Box>
+            </Grid>
           </Grid>
-          <Grid item lg={8} md={10} xs={12}>
-            <AccountProfileDetails
-              currentUser={currentUser}
-              setCurrentUser={setCurrentUser}
-              user={user}
-              setUser={setUser}
-            />
-          </Grid>
-        </Grid>
-      </Container>
+        </Container>
+      </Box>
     </Box>
-    </Box>
-  </MainContainer>
-)};
+  );
+};
 
 export default Account;

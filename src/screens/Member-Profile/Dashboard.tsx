@@ -1,14 +1,13 @@
 import { Box } from '@mui/system'
 import { useAuth } from 'components/hooks/useAuth'
+import { MainContainer } from 'components/MainContainer'
 import Account from './Account'
-import Settings from './Settings'
 
 export const Dashboard = () => {
 const {backendUser, setBackendUser} = useAuth()
 return (
-        <Box>
+  <MainContainer title={"Member Profile"}>
             <Account currentUser={backendUser} setCurrentUser={setBackendUser}/>
-            <Settings />
-        </Box>
+        </MainContainer>
   );
 }

@@ -43,7 +43,6 @@ const AccountProfileDetails: FunctionComponent<IAccountProfileDetailsProps> = ({
   setUser,
 }) => {
   const { updateUser } = useUserApi();
-  const [values, setValues] = useState<BackendUser>();
 
   const handleChange = (event) => {
     setUser({
@@ -59,7 +58,7 @@ const AccountProfileDetails: FunctionComponent<IAccountProfileDetailsProps> = ({
 
   return (
     <FormControl>
-      <Card>
+      <Card style={{ marginBottom: '2em' }}>
         <CardHeader subheader="The information can be edited" title="Profile" />
         <Divider />
         <CardContent>
@@ -155,12 +154,6 @@ const AccountProfileDetails: FunctionComponent<IAccountProfileDetailsProps> = ({
           </Button>
         </Box>
       </Card>
-      <SettingsPassword
-        currentUser={currentUser}
-        setCurrentUser={setCurrentUser}
-        user={user}
-        setUser={setUser}
-      />
     </FormControl>
   );
 };

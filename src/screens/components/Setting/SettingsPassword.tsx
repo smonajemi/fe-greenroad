@@ -11,7 +11,9 @@ import {
   Grid,
   IconButton,
   InputAdornment,
+  Typography
 } from "@mui/material";
+import { makeStyles } from '@mui/styles';
 import { BackendUser } from "types";
 import { useUserApi } from "screens/hooks/use-user-api/useUserApi";
 import { VisibilityOff, Visibility } from "@mui/icons-material";
@@ -23,14 +25,22 @@ export interface ISettingsPasswordProps {
   setUser: Function;
 }
 
+const useStyles = makeStyles(() => ({
+  helperText: {
+    color: 'green'
+  }
+}))
+
 const SettingsPassword: FunctionComponent<ISettingsPasswordProps> = ({
   currentUser,
   setCurrentUser,
   user,
   setUser,
 }) => {
+  const classes = useStyles();
   const { updateUser } = useUserApi();
   const [isValidPassword, setPasswordValidation] = useState<boolean>(false);
+  const [password, setPassword] = useState<string>('');
   const [values, setValues] = useState({
     password: "",
     rePassword: "",
@@ -41,6 +51,7 @@ const SettingsPassword: FunctionComponent<ISettingsPasswordProps> = ({
   const handleChange = (e, type: string) => {
     switch (type) {
       case "password":
+        setPassword(e.target.value)
         setValues({
           ...values,
           [e.target.name]: e.target.value,
@@ -74,12 +85,22 @@ const SettingsPassword: FunctionComponent<ISettingsPasswordProps> = ({
   };
 
   const onUpdate = async () => {
-    alert('updated')
+    setCurrentUser({
+      ...currentUser,
+      password: values?.rePassword
+    })
+    // BUG => delay in updating password from FE -> needs to be updated twice to work
+    await updateUser(currentUser?.id, currentUser, 'password');
+    setValues({
+      ...values,
+      password: "",
+      rePassword: "",
+    })
   };
   
   useEffect(() => {
     setPasswordValidation(
-      values?.password && values?.password === values?.rePassword
+      values?.password?.length >= 10 && values?.password === values?.rePassword
     );
   }, [values]);
 
@@ -117,6 +138,7 @@ const SettingsPassword: FunctionComponent<ISettingsPasswordProps> = ({
                     </InputAdornment>
                   ),
                 }}
+                helperText="Minimum length 10"
               />
             </Grid>
             <Grid item md={6} xs={12}>
@@ -145,6 +167,14 @@ const SettingsPassword: FunctionComponent<ISettingsPasswordProps> = ({
                     </InputAdornment>
                   ),
                 }}
+                helperText={
+                  values?.rePassword !== values?.password && values?.rePassword?.length >= 10 ? (
+                    'Passwords do not match'
+                  ) : (
+                    ''
+                  )
+                }
+                error={values?.password !== values?.rePassword && values?.rePassword?.length >= 10}
               />
             </Grid>
        

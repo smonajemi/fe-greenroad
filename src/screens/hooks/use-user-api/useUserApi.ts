@@ -25,8 +25,8 @@ export const useUserApi = () => {
         return response;
     }
 
-    const updateUser = async (id: string, user: BackendUser) => {
-        const response: BackendUser = await http.put(`users/updateUser/${id}`, user)
+    const updateUser = async (id: string, user: BackendUser, type?: any) => {
+        const response: BackendUser = await http.put(`users/updateUser/${id}?type=${type}`, user)
         return response;
     }
 

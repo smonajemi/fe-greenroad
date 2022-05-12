@@ -86,7 +86,6 @@ const SettingsPassword: FunctionComponent<ISettingsPasswordProps> = ({
  
 
   return (
-    <FormControl>
       <Card style={{ marginBottom: '2em'}}>
         <CardHeader subheader="Update password" title="Password" />
         <Divider />
@@ -148,9 +147,7 @@ const SettingsPassword: FunctionComponent<ISettingsPasswordProps> = ({
                 }}
               />
             </Grid>
-            <Grid item md={6} xs={12}>
-             <Box />
-            </Grid>
+       
           </Grid>
         </CardContent>
         <Divider />
@@ -171,7 +168,6 @@ const SettingsPassword: FunctionComponent<ISettingsPasswordProps> = ({
           </Button>
         </Box>
       </Card>
-    </FormControl>
   );
 };
 export default SettingsPassword;
